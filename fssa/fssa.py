@@ -608,7 +608,7 @@ def autoscale(l, rho, a, da, rho_c0, nu0, zeta0, x_bounds=None, **kwargs):
             my_x, my_y, my_dy, x_bounds=x_bounds,
         )
     
-    goal_fn = lambda x: goal_function([rho0, x[0], x[1]])  
+    goal_fn = lambda x: goal_function([rho_c0, x[0], x[1]])  
     
     ret = scipy.optimize.minimize(
         goal_fn,
