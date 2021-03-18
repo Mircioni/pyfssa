@@ -628,7 +628,7 @@ def autoscale(l, rho, a, da, rho_c0, nu0, zeta0, x_bounds=None, **kwargs):
 
     ret['varco'] = varco
     ret['errors'] = errors
-    ret['rho'], ret['nu'], ret['zeta'] = [rho_c0, ret['x'][0], ret['x'][1]]
-    ret['drho'], ret['dnu'], ret['dzeta'] = [0., ret['errors'][0], ret['errors'][1]
+    ret['nu'], ret['zeta'] = ret['x']
+    ret['dnu'], ret['dzeta'] = ret['errors']
 
     return ret
