@@ -607,10 +607,12 @@ def autoscale(l, rho, a, da, rho_c0, nu0, zeta0, x_bounds=None, **kwargs):
         return quality(
             my_x, my_y, my_dy, x_bounds=x_bounds,
         )
-
+    
+    goal_fn = lambda x: goal_function([rho0, x[0], x[1]])  
+    
     ret = scipy.optimize.minimize(
-        goal_function,
-        [rho_c0, nu0, zeta0],
+        goal_fn,
+        [nu0, zeta0],
         method=_minimize_neldermead,
         options={
             'xtol': 1e-2,
@@ -621,12 +623,12 @@ def autoscale(l, rho, a, da, rho_c0, nu0, zeta0, x_bounds=None, **kwargs):
     errors, varco = _neldermead_errors(
         sim=ret['final_simplex'][0],
         fsim=ret['final_simplex'][1],
-        fun=goal_function,
+        fun=goal_fn,
     )
 
     ret['varco'] = varco
     ret['errors'] = errors
-    ret['rho'], ret['nu'], ret['zeta'] = ret['x']
-    ret['drho'], ret['dnu'], ret['dzeta'] = ret['errors']
+    ret['rho'], ret['nu'], ret['zeta'] = [rho0, ret['x']]
+    ret['drho'], ret['dnu'], ret['dzeta'] = [0., ret['errors']]
 
     return ret
