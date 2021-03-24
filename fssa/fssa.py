@@ -625,7 +625,7 @@ def autoscale(l, rho, a, da, rho_c0, nu0, zeta0, x_bounds=None, **kwargs):
     errors, varco = _neldermead_errors(
         sim=ret['final_simplex'][0],
         fsim=ret['final_simplex'][1],
-        fun=goal_fn,
+        fun=goal_function,
     )
 
     ret['varco'] = varco
