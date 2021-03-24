@@ -613,7 +613,7 @@ def autoscale(l, rho, a, da, rho_c0, nu0, zeta0, x_bounds=None, **kwargs):
     # fixed nu0, zeta0 optimization
     # goal_fn = lambda x: goal_function([x, nu0, zeta0])
     ret = scipy.optimize.minimize(
-        goal_fn,
+        goal_function,
         [rho_c0, nu0, zeta0],               # [rho_c0]
         method=_minimize_neldermead,
         options={
